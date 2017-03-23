@@ -3,23 +3,25 @@ package org.sebi
 import scala.util.Random
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-import akka.testkit.{TestKit, TestProbe}
+import akka.testkit.{EventFilter, ImplicitSender, TestKit}
 import org.scalatest._
-import org.sebi.PingPong._
+
 
 class PingPongActorSpec
   extends TestKit(ActorSystem("PingPongActorSpec"))   
-    with WordSpecLike {
+    with WordSpecLike 
+    with ImplicitSender {
 
-  "Twp actors" should {
-    "send messages between themselves" in {
-      val referee = TestProbe("referee")
-      lazy val pingActor: ActorRef = system.actorOf(Props(new Ping(referee.ref, pongActor)), "ping")
-      lazy val pongActor: ActorRef = system.actorOf(Props(new Ping(referee.ref, pingActor)), "pong")
-
-      if(Random.nextBoolean()) pingActor ! Start else pongActor ! Start
-
-      referee.expectMsg(Ball(10))
-    }
-  }
+//  "Twp actors" should {
+//    "send messages between themselves" in {
+//      lazy val referee: ActorRef   = system.actorOf(Props(new Referee(List(pingActor, pongActor))), "referee")
+//      lazy val pingActor: ActorRef = system.actorOf(Props(new PingPong(referee, pongActor)), "ping")
+//      lazy val pongActor: ActorRef = system.actorOf(Props(new PingPong(referee, pingActor)), "pong")
+//
+//      EventFilter.info(pattern = "Winner is", occurrences = 1) intercept {
+//        if (Random.nextBoolean()) pingActor ! Start 
+//        else                      pongActor ! Start
+//      }
+//    }
+//  }
 }

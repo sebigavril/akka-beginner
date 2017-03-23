@@ -11,13 +11,13 @@ class FaultToleranceSpec
     with ImplicitSender
     with WordSpecLike {
   
-  "An actor" should {
-    "display the configured fault tolerant behaviour" in {
-      system.actorOf(Props[Supervisor], "supervisor")
-     
-      Thread.sleep(5000)
-    }
-  }
+//  "An actor" should {
+//    "display the configured fault tolerant behaviour" in {
+//      system.actorOf(Props[Supervisor], "supervisor")
+//     
+//      Thread.sleep(5000)
+//    }
+//  }
 }
 
 object FaultToleranceSpec {
